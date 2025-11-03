@@ -47,25 +47,6 @@ class mainApp:
         self.AbaManutencoes.mainFrame.pack(expand=True, fill="both")
         self.AbaEquipamentos.mainFrame.pack_forget()
 
-    def criarTabela(self):
-        # Exemplo de criação de tabela usando Treeview
-        self.tabela = ttk.Treeview(self.tabelaFrame, columns=("col1", "col2", "col3", "col4", "col5"), show="headings")
-        self.tabela.heading("col1", text="Coluna 1")
-        self.tabela.heading("col2", text="Coluna 2")
-        self.tabela.heading("col3", text="Coluna 3")
-        self.tabela.heading("col4", text="Coluna 4")
-        self.tabela.heading("col5", text="Coluna 5")
-        self.tabela.pack(expand=True, fill='both')
-
-    def atualizarTabela(self, dados):
-        # Limpa a tabela existente
-        for item in self.tabela.get_children():
-            self.tabela.delete(item)
-        # Adiciona novos dados à tabela
-        for linha in dados:
-            self.tabela.insert("", tk.END, values=linha)
-
-
 if __name__ == "__main__":
     root = tk.Tk()
     app = mainApp(root)
