@@ -19,13 +19,9 @@ class AbaEquipamentos:
         self.tabelaFrame.pack(side="bottom", expand=True, fill="both")
 
         self.criarTabela()
-        self.atualizarTabela([
-            ("1", "SN12345", "MarcaA", "ModeloX", "Nenhum", "Ativo"),
-            ("2", "SN67890", "MarcaB", "ModeloY", "Revisão necessária", "Inativo"),
-            ("3", "SN54321", "MarcaC", "ModeloZ", "Em uso", "Ativo")])
         
         self.equipamentosService = EquipamentosService()
-        #self.atualizarTabela(self.equipamentosService.obterTodosEquipamentos())
+        self.atualizarTabela(self.equipamentosService.obterTodosEquipamentos())
 
     def criarTabela(self):
         # Exemplo de criação de tabela usando Treeview

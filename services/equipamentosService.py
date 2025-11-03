@@ -1,0 +1,43 @@
+import os
+import sys
+
+# If this module is executed directly (python services/equipamentosService.py),
+# the package context may be missing and Python won't find the top-level
+# `database` module. To make the script robust both when run directly and when
+# imported as a package, ensure the project root (parent of `services`) is on
+# sys.path.
+if __package__ is None:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(current_dir)
+    if parent_dir not in sys.path:
+        sys.path.insert(0, parent_dir)
+
+from database import Database
+
+class EquipamentosService:
+    def __init__(self):
+        self.database = Database()
+        self.database.setDatabase("GEMA")
+        self.database.setCollection("Multimetros")
+
+    def obterTodosEquipamentos(self):
+
+        equipamentos = []
+
+        for equipamento in self.database.getAllItems():
+            equipamentos.append((equipamento["_id"], equipamento["serialNum"], equipamento["marca"], equipamento["modelo"], equipamento["observacoes"], equipamento["status"]))
+
+        return equipamentos
+
+    def obterEquipamentoPorID(self, id):
+        return self.database.getItemByID(id)
+
+    def atualizarEquipamentoPorID(self, id, atualizacoes):
+        return self.database.updateItemByID(id, atualizacoes)
+    
+
+if __name__ == "__main__":
+    service = EquipamentosService()
+    equipamentos = service.obterTodosEquipamentos()
+    for equipamento in equipamentos:
+        print(equipamento)

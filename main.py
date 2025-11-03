@@ -8,7 +8,6 @@ from userInterfaces.abaManutencoes import AbaManutencoes
 MAIN_BACKGROUND_COLOR = "#252F60"
 LATERAL_MENU_COLOR = "#353F6E"
 
-
 class mainApp:
 
     def __init__(self, root):
