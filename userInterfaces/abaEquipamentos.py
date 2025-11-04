@@ -52,22 +52,25 @@ class AbaEquipamentos:
         if statusSelecionado == "Todos":
             filtroStatus = todosEquipamentos
         else:
-            filtroStatus = [equip for equip in todosEquipamentos if equip[5] == statusSelecionado]
+            filtroStatus = [equip for equip in todosEquipamentos if equip[6] == statusSelecionado]
         
         if pesquisaTexto == "":
             filtroPesquisa = filtroStatus
         else:
             def id_match(equip, pesquisa):
                 id_str = str(equip[0])
+                
                 # Verifica se pesquisa é igual ao id
                 if pesquisa.lower() == id_str.lower():
                     return True
+                
                 # Verifica se pesquisa contém o id nos últimos 5 até os 3 últimos dígitos
                 if len(pesquisa) >= 5:
                     # Extrai os dígitos do 5º ao 3º a partir do final
                     mask_id = pesquisa[-5:-2]
                     if id_str == mask_id:
                         return True
+                    
                 # Verifica se pesquisa é menor ou igual a 3 caracteres e está contido no id  
                 if len(pesquisa) <= 3:
                     return pesquisaTexto.lower() in str(equip[0]).lower()
@@ -89,15 +92,16 @@ class AbaEquipamentos:
             print(f"Valores do item: {values}")
 
     def criarTabela(self):
-        columns = ("col1", "col2", "col3", "col4", "col5", "col6")
+        columns = ("col1", "col2", "col3", "col4", "col5", "col6", "col7")
 
         self.tabela = ttk.Treeview(self.tabelaFrame, columns= columns, show="headings")
         self.tabela.heading("col1", text="ID")
-        self.tabela.heading("col2", text="Serial Number")
-        self.tabela.heading("col3", text="Marca")
-        self.tabela.heading("col4", text="Modelo")
-        self.tabela.heading("col5", text="Observações")
-        self.tabela.heading("col6", text="Status")
+        self.tabela.heading("col2", text="Descrição")
+        self.tabela.heading("col3", text="Serial Number")
+        self.tabela.heading("col4", text="Marca")
+        self.tabela.heading("col5", text="Modelo")
+        self.tabela.heading("col6", text="Observações")
+        self.tabela.heading("col7", text="Status")
         self.tabela.pack(expand=True, fill='both')
 
         for col in columns:

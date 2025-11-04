@@ -24,7 +24,7 @@ class EquipamentosService:
         equipamentos = []
 
         for equipamento in self.database.getAllItems():
-            equipamentos.append((equipamento["_id"], equipamento["serialNum"], equipamento["marca"], equipamento["modelo"], equipamento["observacoes"], equipamento["status"]))
+            equipamentos.append((equipamento["_id"], equipamento["descr"], equipamento["serialNum"], equipamento["marca"], equipamento["modelo"], equipamento["observacoes"], equipamento["status"]))
 
         return equipamentos
 
