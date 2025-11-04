@@ -52,7 +52,7 @@ class AbaEquipamentos:
         if statusSelecionado == "Todos":
             filtroStatus = todosEquipamentos
         else:
-            filtroStatus = [equip for equip in todosEquipamentos if equip[6] == statusSelecionado]
+            filtroStatus = [equip for equip in todosEquipamentos if equip[6].lower() == statusSelecionado.lower()]
         
         if pesquisaTexto == "":
             filtroPesquisa = filtroStatus
@@ -115,8 +115,8 @@ class AbaEquipamentos:
         for item in self.tabela.get_children():
             self.tabela.delete(item)
 
-        # Substitui valores None por ""
-        dados = [[valor if valor is not None else "-" for valor in linha] for linha in dados]
+        # Substitui valores None ou "" por "-"
+        dados = [[valor if valor not in (None, "") else "-" for valor in linha] for linha in dados]
 
         # Adiciona novos dados à tabela
         for linha in dados:
