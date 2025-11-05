@@ -14,6 +14,10 @@ class AbaEquipamentos:
         
         self.filtroFrame = tk.Frame(self.mainFrame, height=125, bg=MAIN_BACKGROUND_COLOR)
         self.filtroFrame.pack(side="top", fill="x")
+        
+        self.label = tk.Label(self.filtroFrame, text="Equipamentos", font=("Arial", 20), bg="#252F60", fg="white")
+        self.label.pack(side="top", fill="x", pady=(20, 0))
+
         self.criarFiltros()
         
         self.tabelaFrame = tk.Frame(self.mainFrame, bg=MAIN_BACKGROUND_COLOR)

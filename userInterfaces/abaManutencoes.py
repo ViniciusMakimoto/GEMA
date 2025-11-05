@@ -20,6 +20,10 @@ class AbaManutencoes:
         
         self.filtroFrame = tk.Frame(self.mainFrame, height=125, bg=MAIN_BACKGROUND_COLOR)
         self.filtroFrame.pack(side="top", fill="x")
+        
+        self.label = tk.Label(self.filtroFrame, text="Manutenções", font=("Arial", 20), bg="#252F60", fg="white")
+        self.label.pack(side="top", fill="x", pady=(20, 0))
+
         self.criarFiltros()
         
         self.tabelaFrame = tk.Frame(self.mainFrame, bg=MAIN_BACKGROUND_COLOR)
@@ -96,6 +100,30 @@ class AbaManutencoes:
 
         if tipoSelecionado != "Todos":
             filtro = [equip for equip in filtro if equip[3].lower() == tipoSelecionado.lower()]
+
+        if pesquisaTexto != "":
+            def id_match(equip, pesquisa):
+                id_str = str(equip[1])
+                
+                # Verifica se pesquisa é igual ao id
+                if pesquisa.lower() == id_str.lower():
+                    return True
+                
+                # Verifica se pesquisa contém o id nos últimos 5 até os 3 últimos dígitos
+                if len(pesquisa) >= 5:
+                    # Extrai os dígitos do 5º ao 3º a partir do final
+                    mask_id = pesquisa[-5:-2]
+                    if id_str == mask_id:
+                        return True
+                    
+                # Verifica se pesquisa é menor ou igual a 3 caracteres e está contido no id  
+                if len(pesquisa) <= 3:
+                    return pesquisaTexto.lower() in str(equip[0]).lower()
+                
+                return False
+
+            filtro = [equip for equip in filtro if id_match(equip, pesquisaTexto)]
+
         
         self.atualizarTabela(filtro)
     
@@ -104,7 +132,7 @@ class AbaManutencoes:
         Abre a aba de manutenções já filtrada pelo ID do equipamento.
         Usa o campo 'ID Equipamento'.
         """
-        self.manutencoesService.obterTodasManutencoes()
+        todos = self.manutencoesService.obterTodasManutencoes()
         
         # Reseta filtros
         self.statusComboBox.current(0)
