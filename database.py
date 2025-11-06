@@ -40,7 +40,7 @@ class Database():
         self.database = self.client[databaseName]
         print(f"[Database] Banco de dados '{databaseName}' configurada com sucesso.")
 
-    def setCollection(self, collectionName = "Multimetros"):
+    def setCollection(self, collectionName = "Equipamentos"):
 
         if not self.hasDatabase:
             print("[Database] Não foi possível setar a coleção - Database não conectada")
@@ -81,19 +81,30 @@ class Database():
         result = self.collection.update_one({"_id": id}, {"$set": updateList})
 
         return result.acknowledged
+    
+    def insertItem(self, itemData= {}):
+        if not self.hasCollection:
+            print(f"[Database] Impossível inserir Item - Coleção não foi definida")
+            return False
+
+        result = self.collection.insert_one(itemData)
+
+        return result.acknowledged
 
 if __name__ == "__main__":
     database = Database()
+    database.setDatabase()
+    database.setCollection()
 
-    items = database.getAllItems()
+    #items = database.getAllItems()
 
-    for item in items:
-        print(item)
+    #for item in items:
+    #    print(item)
 
-    #item = database.getItemByID()
+    item = database.getItemByID("")
     
-    #print("-----------")
-    #print(item)
+    print("-----------")
+    print(item)
 
     #database.updateItemByID(updateList={"status": "Disponível"})
 

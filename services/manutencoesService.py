@@ -34,6 +34,9 @@ class ManutencoesService:
     def atualizarManutencaoPorID(self, id, atualizacoes):
         return self.database.updateItemByID(id, atualizacoes)
     
+    def criarNovaManutencao(self, manutencao_data):
+        return self.database.insertItem(manutencao_data)
+    
 
 if __name__ == "__main__":
     service = ManutencoesService()

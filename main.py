@@ -52,7 +52,7 @@ class mainApp:
 
         self.AbaEquipamentos = AbaEquipamentos(self.areaPrincipal, abrir_manutencoes_callback=self.abrirManutencoesComFiltro)
         self.AbaManutencoes = AbaManutencoes(self.areaPrincipal, nova_manutencao_callback=self.onOpenNovaManutencao)
-        self.AbaNovaManutencao = AbaNovaManutencao(self.areaPrincipal)
+        self.AbaNovaManutencao = AbaNovaManutencao(self.areaPrincipal, openManutencoesCallback=self.abrirManutencoesComFiltro)
 
         self.onOpenEquipamentos()
 
@@ -80,8 +80,8 @@ class mainApp:
         if self.AbaNovaManutencao.mainFrame.winfo_ismapped():
             return
         
-        self.AbaNovaManutencao.resetOptions()
         self.AbaNovaManutencao.mainFrame.pack(expand=True, fill="both", padx= 50)
+        self.AbaNovaManutencao.resetOptions()
         self.AbaManutencoes.mainFrame.pack_forget()
         self.AbaEquipamentos.mainFrame.pack_forget()
 

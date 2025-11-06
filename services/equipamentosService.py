@@ -17,7 +17,7 @@ class EquipamentosService:
     def __init__(self):
         self.database = Database()
         self.database.setDatabase("GEMA")
-        self.database.setCollection("Multimetros")
+        self.database.setCollection("Equipamentos")
 
     def obterTodosEquipamentos(self):
 

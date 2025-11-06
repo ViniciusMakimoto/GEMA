@@ -1,10 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
+from datetime import datetime
 
-from services.novaManutencaoService import NovaManutencaoService
+from services.manutencoesService import ManutencoesService
+from services.equipamentosService import EquipamentosService
+from bson import ObjectId
 
 class AbaNovaManutencao:
-    def __init__(self, areaPrincipal):
+    def __init__(self, areaPrincipal, openManutencoesCallback):
 
         self.mainFrame = tk.Frame(areaPrincipal, bg="#252F60")
         
@@ -18,7 +22,9 @@ class AbaNovaManutencao:
         self.label.grid(row=0, column=0, columnspan=4, pady=20, sticky="ew")
 
         self.initGUI()
-        self.novaManutencaoService = NovaManutencaoService()
+        self.manutencoesService = ManutencoesService()
+        self.equipamentoService = EquipamentosService()
+        self.openManutencoesCallback = openManutencoesCallback
 
     def initGUI(self):
          # ID Equipamento
@@ -64,35 +70,74 @@ class AbaNovaManutencao:
         txt_desc.grid(row=6, column=1, columnspan=3, sticky="ew", padx=5, pady=2)
 
         # Botão para salvar
-        self.btn_salvar = tk.Button(self.mainFrame, text="Salvar Manutenção", bg="#1E90FF", fg="white")
+        self.btn_salvar = tk.Button(self.mainFrame, text="Salvar Manutenção", bg="#1E90FF", fg="white", command=self.salvarManutencao)
         self.btn_salvar.grid(row=7, column=1, columnspan=3, sticky="ew", padx=5, pady=2)
 
         # Armazena referências dos campos para uso posterior
         self.campos = {
-            "ID Equipamento": ent_id,
-            "Solicitante": ent_solicitante,
-            "Prioridade": cb_prioridade,
-            "Tipo": cb_tipo,
-            "Descrição do Problema": txt_desc,
-            "Status": cb_status
+            "id_equipamento": ent_id,
+            "solicitante": ent_solicitante,
+            "prioridade": cb_prioridade,
+            "tipo": cb_tipo,
+            "descricao_problema": txt_desc,
+            "status": cb_status
         }
     
     def resetOptions(self):
-        for _, widget in self.campos.items():
-            if isinstance(widget, tk.Entry):
+        for chave, widget in self.campos.items():
+            if chave == "solicitante":
+                widget.set("")
+                continue
+            
+            if isinstance(widget, ttk.Combobox):
+                widget.current(0)
+            elif isinstance(widget, tk.Entry):
                 widget.delete(0, tk.END)
             elif isinstance(widget, tk.Text):
                 widget.delete("1.0", tk.END)
-            elif isinstance(widget, ttk.Combobox):
-                widget.current(0)
 
     def obterDadosFormulario(self):
         dados = {}
         for chave, widget in self.campos.items():
-            if isinstance(widget, tk.Entry):
+            if isinstance(widget, ttk.Combobox):
                 dados[chave] = widget.get().strip()
-            elif isinstance(widget, ttk.Combobox):
+            elif isinstance(widget, tk.Entry):
                 dados[chave] = widget.get().strip()
             elif isinstance(widget, tk.Text):
                 dados[chave] = widget.get("1.0", tk.END).strip()
         return dados
+    
+    def verificarCamposObrigatorios(self, dados):
+        campos_obrigatorios = ["id_equipamento", "solicitante", "descricao_problema"]
+        for campo in campos_obrigatorios:
+            if not dados.get(campo):
+                return False, f"Campo {campo} não pode ser vazio!"
+            
+        ID_Equipamento = int(dados.get("id_equipamento"))
+            
+        equipamentoInfo = self.equipamentoService.obterEquipamentoPorID(ID_Equipamento)
+        if equipamentoInfo == None:
+            return False, "ID do Equipamento inválido!"
+
+        return True, ""
+    
+    def salvarManutencao(self):
+        dados_manutencao = self.obterDadosFormulario()
+
+        result, message = self.verificarCamposObrigatorios(dados_manutencao)
+        if not result:
+            messagebox.showwarning("Falha ao Criar Nova Manutenção", message=message)
+            return
+
+        # Obter id unico da manutenção
+        dados_manutencao["_id"] = ObjectId()
+        
+        # obter data e hora atuais
+        dados_manutencao["data_inicio"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        successo = self.manutencoesService.criarNovaManutencao(dados_manutencao)
+        if not successo:
+            messagebox.showerror("Erro ao Criar Nova Manutenção", "Não foi possível salvar a nova Manutenção no Banco de Dados")
+        
+        self.openManutencoesCallback(dados_manutencao.get("id_equipamento"))
+        messagebox.showinfo("Criação de Nova Manutenção", "Nova Manutenção criada com Sucesso!")
