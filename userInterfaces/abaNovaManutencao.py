@@ -20,10 +20,13 @@ class AbaNovaManutencao:
 
         self.label = tk.Label(self.mainFrame, text="Registar Nova Manutenção", font=("Arial", 20), bg="#252F60", fg="white")
         self.label.grid(row=0, column=0, columnspan=4, pady=20, sticky="ew")
-
+        #Inicializa os componentes da GUI
         self.initGUI()
+        #Instancia o serviço de manutenções
         self.manutencoesService = ManutencoesService()
+        #Instancia o serviço de equipamentos
         self.equipamentoService = EquipamentosService()
+        
         self.open_manutencoes_callback = open_manutencoes_callback
 
     def initGUI(self):
@@ -82,7 +85,7 @@ class AbaNovaManutencao:
             "descricao_problema": txt_desc,
             "status": cb_status
         }
-    
+    # função para resetar os campos do formulário
     def resetOptions(self):
         for chave, widget in self.campos.items():
             if chave == "solicitante":
@@ -95,7 +98,7 @@ class AbaNovaManutencao:
                 widget.delete(0, tk.END)
             elif isinstance(widget, tk.Text):
                 widget.delete("1.0", tk.END)
-
+    # função para obter os dados do formulário
     def obterDadosFormulario(self):
         dados = {}
         for chave, widget in self.campos.items():
@@ -106,7 +109,7 @@ class AbaNovaManutencao:
             elif isinstance(widget, tk.Text):
                 dados[chave] = widget.get("1.0", tk.END).strip()
         return dados
-    
+    #Função para verificar os campos obrigatórios
     def verificarCamposObrigatorios(self, dados):
         campos_obrigatorios = ["id_equipamento", "solicitante", "descricao_problema"]
         for campo in campos_obrigatorios:
@@ -120,7 +123,7 @@ class AbaNovaManutencao:
             return False, "ID do Equipamento inválido!"
 
         return True, ""
-    
+    #Função para salvar a nova manutenção
     def salvarManutencao(self):
         dados_manutencao = self.obterDadosFormulario()
 
@@ -138,6 +141,6 @@ class AbaNovaManutencao:
         successo = self.manutencoesService.criarNovaManutencao(dados_manutencao)
         if not successo:
             messagebox.showerror("Erro ao Criar Nova Manutenção", "Não foi possível salvar a nova Manutenção no Banco de Dados")
-        
-        self.open_manutencoes_callback(dados_manutencao.get("id_equipamento"))
-        messagebox.showinfo("Criação de Nova Manutenção", "Nova Manutenção criada com Sucesso!")
+            
+        self.open_manutencoes_callback(dados_manutencao.get("id_equipamento")) # Abre a aba de manutenções com filtro pelo equipamento
+        messagebox.showinfo("Criação de Nova Manutenção", "Nova Manutenção criada com Sucesso!") # Mensagem que a manutenção foi criada com sucesso

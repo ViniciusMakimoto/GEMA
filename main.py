@@ -19,8 +19,8 @@ class mainApp:
         self.root.title("GEMA")
         self.root.state("zoomed")  # Janela maximizada
 
-        self.menuLateral = tk.Frame(self.root, width=350, bg=LATERAL_MENU_COLOR)  # Increased width from 250 to 350
-        self.menuLateral.pack(side="left", fill="y")
+        self.menuLateral = tk.Frame(self.root, width=350, bg=LATERAL_MENU_COLOR)  # Define a largura do menu lateral para 350 pixels
+        self.menuLateral.pack(side="left", fill="y") # Preenche verticalmente o menu lateral
 
         # Adiciona uma imagem no menu lateral
         self.logo_img = tk.PhotoImage(file=os.path.abspath("images/LogoGEMA.png"))
