@@ -1,4 +1,4 @@
-# GEMA
+# GME
 > Gestão de Equipamentos e Manutenção
 
 <p align="center">
@@ -8,7 +8,7 @@
 
 ## 📝 Sobre o Projeto
 
-**GEMA (Gestão de Equipamentos e Manutenção)** é um sistema focado em otimizar e organizar o ciclo de vida de ativos e equipamentos. 
+**GME (Gestão de Equipamentos e Manutenção)** é um sistema focado em otimizar e organizar o ciclo de vida de ativos e equipamentos. 
 
 O objetivo principal é centralizar o registro de manutenções, controlar a disponibilidade de equipamentos em tempo real e agilizar a tomada de decisão para equipes de operação e manutenção, reduzindo o tempo de inatividade e aumentando a eficiência operacional.
 
@@ -25,7 +25,7 @@ O objetivo principal é centralizar o registro de manutenções, controlar a dis
 
 ## 💻 Tecnologias Utilizadas
 
-Esta seção descreve as principais tecnologias usadas no desenvolvimento do GEMA.
+Esta seção descreve as principais tecnologias usadas no desenvolvimento do GME.
 
 * **Linguagem:** Python
 * **Interface Gráfica (GUI):** Tkinter
@@ -47,12 +47,12 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente local
 
 1.  Clone o repositório:
     ```bash
-    git clone https://github.com/ViniciusMakimoto/GEMA.git
+    git clone https://github.com/ViniciusMakimoto/GME.git
     ```
 
 2.  Navegue até o diretório do projeto:
     ```bash
-    cd GEMA
+    cd GME
     ```
 
 3.  Crie e ative um ambiente virtual (recomendado para projetos Python):
