@@ -8,7 +8,7 @@
 
 ## 📝 Sobre o Projeto
 
-**GME (Gestão de Equipamentos e Manutenção)** é um sistema focado em otimizar e organizar o ciclo de vida de ativos e equipamentos. 
+**GME (Gestão de Manutenção de Equipamentos)** é um sistema focado em otimizar e organizar o ciclo de vida de ativos e equipamentos. 
 
 O objetivo principal é centralizar o registro de manutenções, controlar a disponibilidade de equipamentos em tempo real e agilizar a tomada de decisão para equipes de operação e manutenção, reduzindo o tempo de inatividade e aumentando a eficiência operacional.
 

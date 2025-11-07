@@ -16,7 +16,7 @@ from database import Database
 class ManutencoesService:
     def __init__(self):
         self.database = Database()
-        self.database.setDatabase("GEMA")
+        self.database.setDatabase("GME")
         self.database.setCollection("Manutencoes")
     #Busca todas as manutenções no banco de dados e retorna uma lista de tuplas com as informações relevantes
     def obterTodasManutencoes(self):

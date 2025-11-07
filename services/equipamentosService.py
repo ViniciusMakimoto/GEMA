@@ -16,7 +16,7 @@ from database import Database
 class EquipamentosService:
     def __init__(self):
         self.database = Database()
-        self.database.setDatabase("GEMA") #Define o banco de dados como GEMA
+        self.database.setDatabase("GME") #Define o banco de dados como GME
         self.database.setCollection("Equipamentos") #Define a coleção como Equipamentos
 
     #Busca todos os equipamentos no banco de dados e retorna uma lista de tuplas com as informações relevantes

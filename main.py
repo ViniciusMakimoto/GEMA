@@ -16,10 +16,10 @@ class mainApp:
     def __init__(self, root):
 
         self.root = root
-        self.root.title("GEMA")
+        self.root.title("GME")
         self.root.state("zoomed")  # Janela maximizada
 
-        self.menuLateral = tk.Frame(self.root, width=350, bg=LATERAL_MENU_COLOR)  # Define a largura do menu lateral para 350 pixels
+        self.menuLateral = tk.Frame(self.root, width=250, bg=LATERAL_MENU_COLOR)  # Define a largura do menu lateral para 350 pixels
         self.menuLateral.pack(side="left", fill="y") # Preenche verticalmente o menu lateral
 
         # Adiciona uma imagem no menu lateral

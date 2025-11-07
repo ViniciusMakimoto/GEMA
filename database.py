@@ -25,7 +25,7 @@ class Database():
         self.opened = False
         print("[Database] Conexão com MongoDB foi fechada")
 
-    def setDatabase(self, databaseName = "GEMA"):
+    def setDatabase(self, databaseName = "GME"):
         # Obtem todos os bancos de dados disponíveis
         databaseNames = self.client.list_database_names()
 

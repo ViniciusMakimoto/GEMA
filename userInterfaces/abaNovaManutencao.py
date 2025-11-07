@@ -112,7 +112,10 @@ class AbaNovaManutencao:
                 dados[chave] = widget.get("1.0", tk.END).strip()
 
         def getID_Equip(id_equip):
-            return id_equip #TODO: FILTRAR MASCARA E OBTER ID VERDADEIRO
+            if len(id_equip) < 5:
+                return id_equip
+            
+            return id_equip[-5:-2]
 
         # Aplica a função para extrair o ID sem máscara
         dados["id_equipamento"] = getID_Equip(dados.get("id_equipamento"))
@@ -125,7 +128,10 @@ class AbaNovaManutencao:
             if not dados.get(campo):
                 return False, f"Campo {campo} não pode ser vazio!"
             
-        ID_Equipamento = int(dados.get("id_equipamento"))
+        try: 
+            ID_Equipamento = int(dados.get("id_equipamento"))
+        except Exception as e:
+            return False, "ID do Equipamento inválido!"
             
         equipamentoInfo = self.equipamentoService.obterEquipamentoPorID(ID_Equipamento)
         if equipamentoInfo == None:
