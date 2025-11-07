@@ -43,6 +43,10 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente local
 * Você precisa ter o **MongoDB** instalado e rodando em sua máquina.
     * [Guia de Instalação do MongoDB](https://docs.mongodb.com/manual/installation/)
 
+    * Crie uma Banco de Dados chamado GME e as coleções de 'Equipamentos' e 'Manutencoes'
+    * O template inicial da coleção está disponível na pasta 'backupDatabase'
+    * Alternativamente, mude no código para as referências de Banco de Dados e Coleções que você criou
+
 ### Guia de Instalação
 
 1.  Clone o repositório:
@@ -68,8 +72,7 @@ Siga os passos abaixo para configurar e executar o projeto em seu ambiente local
     ```bash
     pip install -r requirements.txt
     ```
-    * **Nota:** Certifique-se de que o arquivo `requirements.txt` existe e lista as dependências como `Pillow` (para imagens, se usar), `pymongo` (para MongoDB), etc. Se não tiver, crie-o com `pip freeze > requirements.txt` após instalar suas bibliotecas.
-    * 
+
 5.  Inicie a aplicação:
     ```bash
     python main.py 
