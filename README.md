@@ -1,5 +1,5 @@
 # GME
-> Gestão de Equipamentos e Manutenção
+> Gestão de Manutenção de Equipamentos
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-em%20desenvolvimento-blue" alt="Status do Projeto">
