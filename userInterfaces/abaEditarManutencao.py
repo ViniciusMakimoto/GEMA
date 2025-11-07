@@ -116,9 +116,11 @@ class AbaEditarManutencao:
             return False
 
         return True
+    
     #obtém os dados atuais da manutenção a partir do serviço de manutenções  
     def obterDadosAtuais(self, manutecao_id):
         return self.manutencoesService.obterManutencaoPorID(ObjectId(manutecao_id))
+    
     #popula os campos do formulário com os dados da manutenção
     def popularCampos(self, manutecao_id):
         dados = self.obterDadosAtuais(manutecao_id)
@@ -153,10 +155,18 @@ class AbaEditarManutencao:
         return dados
     
     def verificarCamposObrigatorios(self, dados):
+        # Campos obrigatórios por padrão
         campos_obrigatorios = ["id_equipamento", "solicitante", "descricao_problema"]
         for campo in campos_obrigatorios: 
             if not dados.get(campo): #verifica se o campo está vazio
                 return False, f"Campo {campo} não pode ser vazio!"
+            
+        if dados.get("status") == "Concluído":
+            # Obrigatórios caso a manutenção esteja sendo concluída
+            campos_obrigatorios = ["responsável", "acao_realizada"]
+            for campo in campos_obrigatorios: 
+                if not dados.get(campo): #verifica se o campo está vazio
+                    return False, f"Campo {campo} não pode ser vazio!"
             
         ID_Equipamento = int(dados.get("id_equipamento"))
             
