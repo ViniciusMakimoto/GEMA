@@ -9,6 +9,7 @@ from bson import ObjectId
 import re
 
 class AbaNovaManutencao:
+    # definição do construtor da classe
     def __init__(self, areaPrincipal, open_manutencoes_callback):
 
         self.mainFrame = tk.Frame(areaPrincipal, bg="#252F60")
@@ -27,7 +28,7 @@ class AbaNovaManutencao:
         self.manutencoesService = ManutencoesService()
         #Instancia o serviço de equipamentos
         self.equipamentoService = EquipamentosService()
-        
+        #Callback para abrir a aba de manutenções
         self.open_manutencoes_callback = open_manutencoes_callback
 
     def initGUI(self):
@@ -145,10 +146,10 @@ class AbaNovaManutencao:
         
         # obter data e hora atuais
         dados_manutencao["data_inicio"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+        # salvar nova manutenção no banco de dados
         successo = self.manutencoesService.criarNovaManutencao(dados_manutencao)
         if not successo:
             messagebox.showerror("Erro ao Criar Nova Manutenção", "Não foi possível salvar a nova Manutenção no Banco de Dados")
-            
+        # resetar os campos do formulário  
         self.open_manutencoes_callback(dados_manutencao.get("id_equipamento")) # Abre a aba de manutenções com filtro pelo equipamento
         messagebox.showinfo("Criação de Nova Manutenção", "Nova Manutenção criada com Sucesso!") # Mensagem que a manutenção foi criada com sucesso
